@@ -7,12 +7,12 @@ function formatSize(bytes) {
 function estimateCO2Saved(originalBytes, compressedBytes) {
   const originalMB = originalBytes / (1024 * 1024);
   const compressedMB = compressedBytes / (1024 * 1024);
-  const savedMB = originalMB - compressedMB;
+  const savedMB = Math.max(0, originalMB - compressedMB);
   const savedGrams = savedMB * 0.5;
-  return savedGrams > 0 ? savedGrams.toFixed(2) + ' g' : '0 g';
+  return savedGrams.toFixed(2) + ' g';
 }
 
-// Compression simple avec canvas (JPEG ou WebP)
+// Compression avec canvas (JPEG ou WebP)
 function compressImage(file, exportAsWebp, callback) {
   const reader = new FileReader();
   reader.onload = function (event) {
@@ -30,27 +30,20 @@ function compressImage(file, exportAsWebp, callback) {
       const format = exportAsWebp ? 'image/webp' : 'image/jpeg';
       const extension = exportAsWebp ? 'webp' : 'jpg';
 
-      // Compatibilité : fallback avec toDataURL si toBlob échoue (ex. WebP sur Firefox)
       canvas.toBlob(
         function (blob) {
           if (blob) {
             callback(blob, extension);
           } else {
-            // Fallback : utiliser toDataURL puis le convertir en Blob
+            // Fallback WebP
             const dataUrl = canvas.toDataURL(format, 0.7);
-            const byteString = atob(dataUrl.split(',')[1]);
-            const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
-            const ab = new ArrayBuffer(byteString.length);
-            const ia = new Uint8Array(ab);
-            for (let i = 0; i < byteString.length; i++) {
-              ia[i] = byteString.charCodeAt(i);
-            }
-            const fallbackBlob = new Blob([ab], { type: mimeString });
-            callback(fallbackBlob, extension);
+            fetch(dataUrl)
+              .then(res => res.blob())
+              .then(fallbackBlob => callback(fallbackBlob, extension));
           }
         },
         format,
-        0.7 // qualité
+        0.7
       );
     };
     img.src = event.target.result;
