@@ -8,56 +8,44 @@
 </head>
 <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col items-center justify-center p-6 sm:p-8">
 
-  <!-- Encadré principal -->
   <div class="max-w-xl w-full bg-white shadow-2xl rounded-2xl p-6 sm:p-8">
-    
-    <!-- Logo DANS l'encadré -->
-    <div class="mb-6">
+    <!-- Logo -->
+    <div class="mb-6 flex justify-center">
       <a href="http://agenceparachute.ca/" target="_blank">
         <img src="Parachute_LOGO DETAILS.png" alt="Logo Parachute" class="mx-auto w-40 sm:w-40" />
       </a>
     </div>
 
     <h1 class="text-2xl font-bold mb-6 text-center">🌱 EcoMedia Manager</h1>
-    <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment.</p>
+    <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment en WebP.</p>
 
     <!-- Aperçu -->
-   <img id="previewImage" class="hidden mx-auto mt-6 mb-6 max-w-xs rounded shadow" alt="Aperçu de l'image sélectionnée" />
+    <img id="previewImage" class="hidden mx-auto mt-4 max-w-xs rounded shadow" alt="Aperçu de l'image sélectionnée" />
 
     <!-- Bouton fichier -->
-    <div class="flex justify-center mb-4">
-      <label for="imageInput" class="cursor-pointer inline-block bg-[#FE603A] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#e45532] transition-colors duration-200 w-auto text-center">
+    <div class="flex justify-center my-4">
+      <label for="imageInput" class="cursor-pointer inline-block bg-[#FE603A] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#e45532] transition-colors duration-200 text-center">
         Choisir un fichier
       </label>
     </div>
     <input type="file" id="imageInput" accept="image/*" class="hidden" />
 
-    <!-- Option export WebP -->
-    <div class="mt-2 flex items-center justify-center">
-      <input type="checkbox" id="exportWebp" class="mr-2">
-      <label for="exportWebp" class="text-sm text-gray-700">Exporter en WebP (gratuit, meilleur pour votre SEO)</label>
-    </div>
-    <p class="text-xs text-gray-500 text-center mt-1">
-      Le format WebP est jusqu’à 30 % plus léger que JPEG/PNG, tout en conservant une excellente qualité. Recommandé pour la vitesse de chargement et le SEO.
-    </p>
-
-    <!-- Résultats centrés -->
+    <!-- Résultats -->
     <div id="output" class="hidden mt-6 text-center">
       <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
       <p class="text-sm mb-2">Poids compressé : <span id="compressedSize"></span></p>
       <p class="text-sm mb-4 font-semibold text-green-600">Économie estimée en CO₂ : <span id="co2Saved"></span></p>
-      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 inline-block" download>
-        📥 Télécharger l'image compressée
+      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 inline-block mb-2" download>
+        📥 Télécharger l'image compressée en format WebP
       </a>
+      <p class="text-xs text-gray-500 mt-2">
+        Le format WebP est jusqu’à 30 % plus léger que JPEG/PNG, tout en conservant une excellente qualité. Recommandé pour la vitesse de chargement et le SEO.
+      </p>
     </div>
   </div>
 
-  <!-- Footer -->
-  <p class="mt-8 text-sm text-gray-500 text-center">
-    Propulsé par <a href="https://studioparachute.co" class="underline hover:text-[#FE603A]">Studio Parachute</a>
-  </p>
+  <p class="mt-8 text-sm text-gray-500 text-center">Propulsé par <a href="https://studioparachute.co" class="underline hover:text-[#FE603A]">Studio Parachute</a></p>
 
-  <!-- Script -->
-  <script src="script.js?v=3"></script>
+  <script src="script.js"></script>
 </body>
 </html>
