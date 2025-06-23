@@ -18,10 +18,8 @@
     <h1 class="text-2xl font-bold mb-6 text-center">🌱 EcoMedia Manager</h1>
     <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment.</p>
 
-      <!-- Affichage de l'image -->
-
+    <!-- Aperçu de l'image -->
     <img id="previewImage" class="hidden mx-auto mt-6 max-w-xs rounded shadow" alt="Aperçu de l'image sélectionnée" />
-
 
     <!-- Bouton personnalisé -->
     <div class="flex justify-center mb-4">
@@ -40,7 +38,8 @@
       Le format WebP est jusqu’à 30 % plus léger que JPEG/PNG, tout en conservant une excellente qualité. Recommandé pour la vitesse de chargement et le SEO.
     </p>
 
-    <div id="output" class="hidden mt-6">
+    <!-- Résultats et téléchargement -->
+    <div id="output" class="hidden mt-6 text-center">
       <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
       <p class="text-sm mb-2">Poids compressé : <span id="compressedSize"></span></p>
       <p class="text-sm mb-4 font-semibold text-green-600">Économie estimée en CO₂ : <span id="co2Saved"></span></p>
@@ -50,6 +49,7 @@
 
   <p class="mt-8 text-sm text-gray-500 text-center">Propulsé par <a href="https://studioparachute.co" class="underline hover:text-[#FE603A]">Studio Parachute</a></p>
 
-  <script src="script.js"></script>
+  <!-- Cache buster ajouté -->
+  <script src="script.js?v=2"></script>
 </body>
 </html>
