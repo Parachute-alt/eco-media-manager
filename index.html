@@ -10,7 +10,8 @@
 
   <!-- Encadré principal -->
   <div class="max-w-xl w-full bg-white shadow-2xl rounded-2xl p-6 sm:p-8">
-    <!-- Logo dans l'encadré -->
+    
+    <!-- Logo DANS l'encadré -->
     <div class="mb-6">
       <a href="http://agenceparachute.ca/" target="_blank">
         <img src="Parachute_LOGO DETAILS.png" alt="Logo Parachute" class="mx-auto w-40 sm:w-40" />
@@ -40,21 +41,23 @@
       Le format WebP est jusqu’à 30 % plus léger que JPEG/PNG, tout en conservant une excellente qualité. Recommandé pour la vitesse de chargement et le SEO.
     </p>
 
-    <!-- Résultats -->
+    <!-- Résultats centrés -->
     <div id="output" class="hidden mt-6 text-center">
       <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
       <p class="text-sm mb-2">Poids compressé : <span id="compressedSize"></span></p>
       <p class="text-sm mb-4 font-semibold text-green-600">Économie estimée en CO₂ : <span id="co2Saved"></span></p>
-      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" download>📥 Télécharger l'image compressée</a>
+      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 inline-block" download>
+        📥 Télécharger l'image compressée
+      </a>
     </div>
   </div>
 
-  <!-- Mention propulsée par -->
+  <!-- Footer -->
   <p class="mt-8 text-sm text-gray-500 text-center">
     Propulsé par <a href="https://studioparachute.co" class="underline hover:text-[#FE603A]">Studio Parachute</a>
   </p>
 
-  <!-- Script (avec cache buster) -->
-  <script src="script.js?v=2"></script>
+  <!-- Script -->
+  <script src="script.js?v=3"></script>
 </body>
 </html>
