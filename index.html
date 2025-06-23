@@ -5,40 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EcoMedia Manager</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .logo-parachute {
-      width: 160px;
-      height: auto;
-      margin: 0 auto 2rem;
-      display: block;
-    }
-  </style>
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col items-center justify-center p-6 sm:p-8">
   <!-- Logo Parachute -->
-  <div class="w-full flex justify-center">
+  <div class="mb-6">
     <a href="http://agenceparachute.ca/" target="_blank">
-      <img src="Parachute_LOGO DETAILS.png" alt="Logo Parachute" class="logo-parachute">
+      <img src="Parachute_LOGO DETAILS.png" alt="Logo Parachute" class="mx-auto w-40 sm:w-40" />
     </a>
   </div>
 
-  <div class="w-full max-w-xl bg-white shadow-2xl rounded-2xl p-6 sm:p-8">
+  <div class="max-w-xl w-full bg-white shadow-2xl rounded-2xl p-6 sm:p-8">
     <h1 class="text-2xl font-bold mb-6 text-center">🌱 EcoMedia Manager</h1>
     <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment.</p>
 
-    <!-- Bouton personnalisé réduit -->
-    <div class="flex justify-center">
+    <!-- Bouton personnalisé -->
+    <div class="flex justify-center mb-4">
       <label for="imageInput" class="cursor-pointer inline-block bg-[#FE603A] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#e45532] transition-colors duration-200 w-auto text-center">
         Choisir un fichier
       </label>
     </div>
     <input type="file" id="imageInput" accept="image/*" class="hidden" />
 
+    <!-- Option export WebP -->
+    <div class="mt-2 flex items-center justify-center">
+      <input type="checkbox" id="exportWebp" class="mr-2">
+      <label for="exportWebp" class="text-sm text-gray-700">Exporter en WebP (gratuit, meilleur pour votre SEO)</label>
+    </div>
+    <p class="text-xs text-gray-500 text-center mt-1">
+      Le format WebP est jusqu’à 30 % plus léger que JPEG/PNG, tout en conservant une excellente qualité. Recommandé pour la vitesse de chargement et le SEO.
+    </p>
+
     <div id="output" class="hidden mt-6">
       <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
       <p class="text-sm mb-2">Poids compressé : <span id="compressedSize"></span></p>
       <p class="text-sm mb-4 font-semibold text-green-600">Économie estimée en CO₂ : <span id="co2Saved"></span></p>
-      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 block text-center" download>📥 Télécharger l'image compressée</a>
+      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" download>📥 Télécharger l'image compressée</a>
     </div>
   </div>
 
