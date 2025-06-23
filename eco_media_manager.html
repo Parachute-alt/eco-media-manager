@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoMedia Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="max-w-xl w-full bg-white shadow-2xl rounded-2xl p-8">
+    <h1 class="text-2xl font-bold mb-6 text-center">🌱 EcoMedia Manager</h1>
+    <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment.</p>
+
+    <input type="file" id="imageInput" accept="image/*" class="mb-4 w-full" />
+
+    <div id="output" class="hidden mt-6">
+      <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
+      <p class="text-sm mb-2">Poids compressé : <span id="compressedSize"></span></p>
+      <p class="text-sm mb-4 font-semibold text-green-600">Économie estimée en CO₂ : <span id="co2Saved"></span></p>
+      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" download>📥 Télécharger l'image compressée</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
