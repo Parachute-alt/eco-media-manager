@@ -12,8 +12,8 @@ function estimateCO2Saved(originalBytes, compressedBytes) {
   return savedGrams.toFixed(2) + ' g';
 }
 
-// Compression avec canvas (JPEG ou WebP)
-function compressImage(file, exportAsWebp, callback) {
+// Compression avec canvas (WebP uniquement)
+function compressImageToWebp(file, callback) {
   const reader = new FileReader();
   reader.onload = function (event) {
     const img = new Image();
@@ -27,9 +27,9 @@ function compressImage(file, exportAsWebp, callback) {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-      const format = exportAsWebp ? 'image/webp' : 'image/jpeg';
-      const extension = exportAsWebp ? 'webp' : 'jpg';
-      const quality = exportAsWebp ? 0.8 : 0.4; // Meilleure compression JPEG pour incidence CO2
+      const format = 'image/webp';
+      const extension = 'webp';
+      const quality = 0.8;
 
       canvas.toBlob(
         function (blob) {
@@ -63,13 +63,10 @@ function compressImage(file, exportAsWebp, callback) {
 }
 
 const imageInput = document.getElementById('imageInput');
-const exportWebpCheckbox = document.getElementById('exportWebp');
 
 imageInput.addEventListener('change', function (e) {
   const file = e.target.files[0];
   if (!file) return;
-
-  const exportAsWebp = exportWebpCheckbox.checked;
 
   const originalSize = file.size;
   document.getElementById('originalSize').textContent = formatSize(originalSize);
@@ -83,7 +80,7 @@ imageInput.addEventListener('change', function (e) {
   };
   readerPreview.readAsDataURL(file);
 
-  compressImage(file, exportAsWebp, function (compressedBlob, extension) {
+  compressImageToWebp(file, function (compressedBlob, extension) {
     const compressedSize = compressedBlob.size;
     document.getElementById('compressedSize').textContent = formatSize(compressedSize);
     document.getElementById('co2Saved').textContent = estimateCO2Saved(originalSize, compressedSize);
