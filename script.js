@@ -30,21 +30,31 @@ function compressImage(file, exportAsWebp, callback) {
       const format = exportAsWebp ? 'image/webp' : 'image/jpeg';
       const extension = exportAsWebp ? 'webp' : 'jpg';
 
-      canvas.toBlob(
-        function (blob) {
-          if (blob) {
-            callback(blob, extension);
-          } else {
-            // Fallback WebP
-            const dataUrl = canvas.toDataURL(format, 0.7);
-            fetch(dataUrl)
-              .then(res => res.blob())
-              .then(fallbackBlob => callback(fallbackBlob, extension));
-          }
-        },
-        format,
-        0.7
-      );
+      try {
+        canvas.toBlob(
+          function (blob) {
+            if (blob) {
+              callback(blob, extension);
+            } else {
+              // Fallback WebP (si blob null)
+              const dataUrl = canvas.toDataURL(format, 0.7);
+              fetch(dataUrl)
+                .then(res => res.blob())
+                .then(fallbackBlob => callback(fallbackBlob, extension))
+                .catch(() => {
+                  alert("Impossible d'exporter en WebP. Veuillez réessayer avec un autre navigateur.");
+                });
+            }
+          },
+          format,
+          0.7
+        );
+      } catch (err) {
+        alert("Erreur d'exportation WebP : " + err.message);
+      }
+    };
+    img.onerror = function () {
+      alert("Erreur lors du chargement de l'image.");
     };
     img.src = event.target.result;
   };
