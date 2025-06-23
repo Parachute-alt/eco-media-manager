@@ -30,9 +30,24 @@ function compressImage(file, exportAsWebp, callback) {
       const format = exportAsWebp ? 'image/webp' : 'image/jpeg';
       const extension = exportAsWebp ? 'webp' : 'jpg';
 
+      // Compatibilité : fallback avec toDataURL si toBlob échoue (ex. WebP sur Firefox)
       canvas.toBlob(
         function (blob) {
-          callback(blob, extension);
+          if (blob) {
+            callback(blob, extension);
+          } else {
+            // Fallback : utiliser toDataURL puis le convertir en Blob
+            const dataUrl = canvas.toDataURL(format, 0.7);
+            const byteString = atob(dataUrl.split(',')[1]);
+            const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+            }
+            const fallbackBlob = new Blob([ab], { type: mimeString });
+            callback(fallbackBlob, extension);
+          }
         },
         format,
         0.7 // qualité
