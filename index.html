@@ -14,23 +14,21 @@
     }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col items-center justify-center p-6">
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
   <!-- Logo Parachute -->
-  <div class="container">
-    <div class="logo-container">
-      <a href="http://agenceparachute.ca/" target="_blank">
-        <img src="Parachute_LOGO DETAILS.png" alt="Logo Parachute" class="logo-parachute">
-      </a>
-    </div>
+  <div class="w-full flex justify-center">
+    <a href="http://agenceparachute.ca/" target="_blank">
+      <img src="Parachute_LOGO DETAILS.png" alt="Logo Parachute" class="logo-parachute">
+    </a>
   </div>
 
-  <div class="max-w-xl w-full bg-white shadow-2xl rounded-2xl p-8">
+  <div class="w-full max-w-xl bg-white shadow-2xl rounded-2xl p-6 sm:p-8">
     <h1 class="text-2xl font-bold mb-6 text-center">🌱 EcoMedia Manager</h1>
     <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment.</p>
 
     <!-- Bouton personnalisé réduit -->
     <div class="flex justify-center">
-      <label for="imageInput" class="cursor-pointer inline-block bg-[#FE603A] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#e45532] transition-colors duration-200 w-auto">
+      <label for="imageInput" class="cursor-pointer inline-block bg-[#FE603A] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#e45532] transition-colors duration-200 w-auto text-center">
         Choisir un fichier
       </label>
     </div>
@@ -40,7 +38,7 @@
       <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
       <p class="text-sm mb-2">Poids compressé : <span id="compressedSize"></span></p>
       <p class="text-sm mb-4 font-semibold text-green-600">Économie estimée en CO₂ : <span id="co2Saved"></span></p>
-      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" download>📥 Télécharger l'image compressée</a>
+      <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 block text-center" download>📥 Télécharger l'image compressée</a>
     </div>
   </div>
 
