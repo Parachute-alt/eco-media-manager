@@ -30,13 +30,13 @@ function compressImage(file, exportAsWebp, callback) {
       const format = exportAsWebp ? 'image/webp' : 'image/jpeg';
       const extension = exportAsWebp ? 'webp' : 'jpg';
 
-      try {
-        canvas.toBlob(
-          function (blob) {
-            if (blob) {
-              callback(blob, extension);
-            } else {
-              // Fallback WebP (si blob null)
+      canvas.toBlob(
+        function (blob) {
+          if (blob) {
+            callback(blob, extension);
+          } else {
+            // Fallback WebP (si blob null)
+            try {
               const dataUrl = canvas.toDataURL(format, 0.7);
               fetch(dataUrl)
                 .then(res => res.blob())
@@ -44,14 +44,14 @@ function compressImage(file, exportAsWebp, callback) {
                 .catch(() => {
                   alert("Impossible d'exporter en WebP. Veuillez réessayer avec un autre navigateur.");
                 });
+            } catch (err) {
+              alert("Erreur d'exportation WebP : " + err.message);
             }
-          },
-          format,
-          0.7
-        );
-      } catch (err) {
-        alert("Erreur d'exportation WebP : " + err.message);
-      }
+          }
+        },
+        format,
+        0.7
+      );
     };
     img.onerror = function () {
       alert("Erreur lors du chargement de l'image.");
@@ -68,10 +68,10 @@ imageInput.addEventListener('change', function (e) {
   const file = e.target.files[0];
   if (!file) return;
 
+  const exportAsWebp = exportWebpCheckbox.checked;
+
   const originalSize = file.size;
   document.getElementById('originalSize').textContent = formatSize(originalSize);
-
-  const exportAsWebp = exportWebpCheckbox.checked;
 
   // Prévisualisation de l'image
   const previewImg = document.getElementById('previewImage');
