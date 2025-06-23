@@ -29,6 +29,7 @@ function compressImage(file, exportAsWebp, callback) {
 
       const format = exportAsWebp ? 'image/webp' : 'image/jpeg';
       const extension = exportAsWebp ? 'webp' : 'jpg';
+      const quality = exportAsWebp ? 0.8 : 0.4; // Meilleure compression JPEG pour incidence CO2
 
       canvas.toBlob(
         function (blob) {
@@ -37,7 +38,7 @@ function compressImage(file, exportAsWebp, callback) {
           } else {
             // Fallback WebP (si blob null)
             try {
-              const dataUrl = canvas.toDataURL(format, 0.7);
+              const dataUrl = canvas.toDataURL(format, quality);
               fetch(dataUrl)
                 .then(res => res.blob())
                 .then(fallbackBlob => callback(fallbackBlob, extension))
@@ -50,7 +51,7 @@ function compressImage(file, exportAsWebp, callback) {
           }
         },
         format,
-        0.7
+        quality
       );
     };
     img.onerror = function () {
