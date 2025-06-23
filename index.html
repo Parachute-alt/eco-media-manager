@@ -7,11 +7,18 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col items-center justify-center p-6">
+  <!-- Logo Parachute -->
+  <img src="https://studioparachute.co/wp-content/uploads/2024/01/logo_parachute_rond_orange.png" alt="Logo Parachute" class="w-24 h-24 mb-6" />
+
   <div class="max-w-xl w-full bg-white shadow-2xl rounded-2xl p-8">
     <h1 class="text-2xl font-bold mb-6 text-center">🌱 EcoMedia Manager</h1>
     <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment.</p>
 
-    <input type="file" id="imageInput" accept="image/*" class="mb-4 w-full" />
+    <!-- Bouton personnalisé -->
+    <label for="imageInput" class="cursor-pointer inline-block bg-[#FE603A] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#e45532] transition-colors duration-200 w-full text-center">
+      Choisir un fichier
+    </label>
+    <input type="file" id="imageInput" accept="image/*" class="hidden" />
 
     <div id="output" class="hidden mt-6">
       <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
