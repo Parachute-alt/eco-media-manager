@@ -1,7 +1,3 @@
-
-// Charge une librairie externe pour la compression
-// On utilisera browser-image-compression via CDN dans le HTML si besoin (ici pas nécessaire pour le prototype de base)
-
 // Conversion octets → Ko
 function formatSize(bytes) {
   return (bytes / 1024).toFixed(2) + ' Ko';
@@ -16,8 +12,8 @@ function estimateCO2Saved(originalBytes, compressedBytes) {
   return savedGrams > 0 ? savedGrams.toFixed(2) + ' g' : '0 g';
 }
 
-// Compression simple avec canvas (pas la plus efficace, mais native)
-function compressImage(file, callback) {
+// Compression simple avec canvas (JPEG ou WebP)
+function compressImage(file, exportAsWebp, callback) {
   const reader = new FileReader();
   reader.onload = function (event) {
     const img = new Image();
@@ -31,11 +27,14 @@ function compressImage(file, callback) {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
+      const format = exportAsWebp ? 'image/webp' : 'image/jpeg';
+      const extension = exportAsWebp ? 'webp' : 'jpg';
+
       canvas.toBlob(
         function (blob) {
-          callback(blob);
+          callback(blob, extension);
         },
-        'image/jpeg',
+        format,
         0.7 // qualité
       );
     };
@@ -44,21 +43,35 @@ function compressImage(file, callback) {
   reader.readAsDataURL(file);
 }
 
-document.getElementById('imageInput').addEventListener('change', function (e) {
+const imageInput = document.getElementById('imageInput');
+const exportWebpCheckbox = document.getElementById('exportWebp');
+
+imageInput.addEventListener('change', function (e) {
   const file = e.target.files[0];
   if (!file) return;
 
   const originalSize = file.size;
   document.getElementById('originalSize').textContent = formatSize(originalSize);
 
-  compressImage(file, function (compressedBlob) {
+  const exportAsWebp = exportWebpCheckbox.checked;
+
+  // Prévisualisation de l'image
+  const previewImg = document.getElementById('previewImage');
+  const readerPreview = new FileReader();
+  readerPreview.onload = function (event) {
+    previewImg.src = event.target.result;
+    previewImg.classList.remove('hidden');
+  };
+  readerPreview.readAsDataURL(file);
+
+  compressImage(file, exportAsWebp, function (compressedBlob, extension) {
     const compressedSize = compressedBlob.size;
     document.getElementById('compressedSize').textContent = formatSize(compressedSize);
     document.getElementById('co2Saved').textContent = estimateCO2Saved(originalSize, compressedSize);
 
     const downloadLink = document.getElementById('downloadLink');
     downloadLink.href = URL.createObjectURL(compressedBlob);
-    downloadLink.download = 'compressed_' + file.name;
+    downloadLink.download = 'compressed_' + file.name.replace(/\.[^/.]+$/, '') + '.' + extension;
 
     document.getElementById('output').classList.remove('hidden');
   });
