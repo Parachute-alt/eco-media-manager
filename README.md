@@ -43,3 +43,5 @@ cd ecomedia-manager
 # 2) Installer les dépendances (ex. Node.js)
 # Remplace par la commande de ton projet (npm, pnpm, yarn, pip, etc.)
 npm install
+
+Try it online : https://studioparachute.co/outils-marketing-parachute-gratuits-roi-analytics-tools
