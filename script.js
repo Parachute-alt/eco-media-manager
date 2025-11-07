@@ -1,4 +1,3 @@
-
 function formatSize(bytes) {
   return (bytes / 1024).toFixed(2) + ' Ko';
 }
@@ -40,10 +39,10 @@ function compressImageToWebp(file, callback) {
                 .then(res => res.blob())
                 .then(fallbackBlob => callback(fallbackBlob, extension))
                 .catch(() => {
-                  alert("Impossible d’exporter en WebP. Veuillez essayer un autre navigateur.");
+                  alert("❌ Impossible d’exporter en WebP. Essayez un autre navigateur.");
                 });
             } catch (err) {
-              alert("Erreur d’export WebP : " + err.message);
+              alert("Erreur WebP : " + err.message);
             }
           }
         },
@@ -89,7 +88,7 @@ imageInput.addEventListener('change', function (e) {
 
     if (reductionPercent < 2 || compressedSize >= originalSize) {
       output.classList.add('hidden');
-      alert("✅ Bonne nouvelle : votre image est déjà optimisée ! Aucune compression supplémentaire n’a été appliquée pour préserver sa qualité.");
+      alert(" Bonne nouvelle : votre image est déjà optimisée ! Aucune compression supplémentaire n’a été appliquée pour préserver sa qualité.");
       return;
     }
 
