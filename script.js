@@ -1,10 +1,8 @@
 
-// Conversion octets → Ko
 function formatSize(bytes) {
   return (bytes / 1024).toFixed(2) + ' Ko';
 }
 
-// Estimation simple : 1 Mo ≈ 0.5g CO₂ (valeur indicative)
 function estimateCO2Saved(originalBytes, compressedBytes) {
   const originalMB = originalBytes / (1024 * 1024);
   const compressedMB = compressedBytes / (1024 * 1024);
@@ -13,7 +11,6 @@ function estimateCO2Saved(originalBytes, compressedBytes) {
   return savedGrams.toFixed(2) + ' g';
 }
 
-// Compression avec canvas (WebP uniquement)
 function compressImageToWebp(file, callback) {
   const reader = new FileReader();
   reader.onload = function (event) {
@@ -43,10 +40,10 @@ function compressImageToWebp(file, callback) {
                 .then(res => res.blob())
                 .then(fallbackBlob => callback(fallbackBlob, extension))
                 .catch(() => {
-                  alert("Impossible d'exporter en WebP. Veuillez réessayer avec un autre navigateur.");
+                  alert("Impossible d’exporter en WebP. Veuillez essayer un autre navigateur.");
                 });
             } catch (err) {
-              alert("Erreur d'exportation WebP : " + err.message);
+              alert("Erreur d’export WebP : " + err.message);
             }
           }
         },
@@ -55,7 +52,7 @@ function compressImageToWebp(file, callback) {
       );
     };
     img.onerror = function () {
-      alert("Erreur lors du chargement de l'image.");
+      alert("Erreur lors du chargement de l’image.");
     };
     img.src = event.target.result;
   };
@@ -81,25 +78,23 @@ imageInput.addEventListener('change', function (e) {
 
   compressImageToWebp(file, function (compressedBlob, extension) {
     const compressedSize = compressedBlob.size;
-    document.getElementById('compressedSize').textContent = formatSize(compressedSize);
-    document.getElementById('co2Saved').textContent = estimateCO2Saved(originalSize, compressedSize);
-
-    const downloadLink = document.getElementById('downloadLink');
     const output = document.getElementById('output');
-    const messageBox = document.getElementById('alreadyOptimizedMessage');
+    const downloadLink = document.getElementById('downloadLink');
 
     const sizeReduction = originalSize - compressedSize;
     const reductionPercent = (sizeReduction / originalSize) * 100;
 
-    if (reductionPercent < 2) {
-      downloadLink.style.display = 'none';
-      messageBox.classList.remove('hidden');
-    } else {
-      downloadLink.href = URL.createObjectURL(compressedBlob);
-      downloadLink.download = 'compressed_' + file.name.replace(/\.[^/.]+$/, '') + '.' + extension;
-      downloadLink.style.display = 'inline-block';
-      messageBox.classList.add('hidden');
+    document.getElementById('compressedSize').textContent = formatSize(compressedSize);
+    document.getElementById('co2Saved').textContent = estimateCO2Saved(originalSize, compressedSize);
+
+    if (reductionPercent < 2 || compressedSize >= originalSize) {
+      output.classList.add('hidden');
+      alert("✅ Bonne nouvelle : votre image est déjà optimisée ! Aucune compression supplémentaire n’a été appliquée pour préserver sa qualité.");
+      return;
     }
+
+    downloadLink.href = URL.createObjectURL(compressedBlob);
+    downloadLink.download = 'compressed_' + file.name.replace(/\.[^/.]+$/, '') + '.' + extension;
 
     output.classList.remove('hidden');
   });
