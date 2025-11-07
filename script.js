@@ -1,3 +1,4 @@
+
 // Conversion octets → Ko
 function formatSize(bytes) {
   return (bytes / 1024).toFixed(2) + ' Ko';
@@ -29,14 +30,13 @@ function compressImageToWebp(file, callback) {
 
       const format = 'image/webp';
       const extension = 'webp';
-      const quality = 0.8;
+      const quality = 0.5;
 
       canvas.toBlob(
         function (blob) {
           if (blob) {
             callback(blob, extension);
           } else {
-            // Fallback WebP (si blob null)
             try {
               const dataUrl = canvas.toDataURL(format, quality);
               fetch(dataUrl)
@@ -71,7 +71,6 @@ imageInput.addEventListener('change', function (e) {
   const originalSize = file.size;
   document.getElementById('originalSize').textContent = formatSize(originalSize);
 
-  // Prévisualisation de l'image
   const previewImg = document.getElementById('previewImage');
   const readerPreview = new FileReader();
   readerPreview.onload = function (event) {
@@ -86,9 +85,22 @@ imageInput.addEventListener('change', function (e) {
     document.getElementById('co2Saved').textContent = estimateCO2Saved(originalSize, compressedSize);
 
     const downloadLink = document.getElementById('downloadLink');
-    downloadLink.href = URL.createObjectURL(compressedBlob);
-    downloadLink.download = 'compressed_' + file.name.replace(/\.[^/.]+$/, '') + '.' + extension;
+    const output = document.getElementById('output');
+    const messageBox = document.getElementById('alreadyOptimizedMessage');
 
-    document.getElementById('output').classList.remove('hidden');
+    const sizeReduction = originalSize - compressedSize;
+    const reductionPercent = (sizeReduction / originalSize) * 100;
+
+    if (reductionPercent < 2) {
+      downloadLink.style.display = 'none';
+      messageBox.classList.remove('hidden');
+    } else {
+      downloadLink.href = URL.createObjectURL(compressedBlob);
+      downloadLink.download = 'compressed_' + file.name.replace(/\.[^/.]+$/, '') + '.' + extension;
+      downloadLink.style.display = 'inline-block';
+      messageBox.classList.add('hidden');
+    }
+
+    output.classList.remove('hidden');
   });
 });
