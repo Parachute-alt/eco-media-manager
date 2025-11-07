@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,10 +19,10 @@
     <h1 class="text-2xl font-bold mb-6 text-center">🌱 EcoMedia Manager</h1>
     <p class="mb-4 text-center">Charge une image pour mesurer son impact et la compresser intelligemment en WebP.</p>
 
-    <!-- Preview -->
+    <!-- Aperçu -->
     <img id="previewImage" class="hidden mx-auto mt-4 max-w-xs rounded shadow" alt="Aperçu de l’image sélectionnée" />
 
-    <!-- File button -->
+    <!-- Bouton -->
     <div class="flex justify-center my-4">
       <label for="imageInput" class="cursor-pointer inline-block bg-[#FE603A] text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#e45532] transition-colors duration-200 text-center">
         Choisir un fichier
@@ -31,13 +30,13 @@
     </div>
     <input type="file" id="imageInput" accept="image/*" class="hidden" />
 
-    <!-- Results -->
+    <!-- Résultats -->
     <div id="output" class="hidden mt-6 text-center">
       <p class="text-sm mb-2">Poids original : <span id="originalSize"></span></p>
       <p class="text-sm mb-2">Poids compressé : <span id="compressedSize"></span></p>
       <p class="text-sm mb-4 font-semibold text-green-600">Économie estimée en CO₂ : <span id="co2Saved"></span></p>
       <a id="downloadLink" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 inline-block mb-2" download>
-        📥 Télécharger l’image compressée en format WebP
+        Télécharger l’image compressée en format WebP
       </a>
       <p class="text-xs text-gray-500 mt-2">
         Le format WebP est jusqu’à 30 % plus léger que JPEG/PNG, tout en conservant une excellente qualité. Recommandé pour la vitesse de chargement et le SEO.
